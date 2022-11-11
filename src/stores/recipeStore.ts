@@ -1,7 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-
 interface Ingredient {
     title: String
     amount: Number
