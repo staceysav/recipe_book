@@ -12,7 +12,7 @@ interface Recipe {
     description: String
     time_to_cook: String
     ingredients: Array<Ingredient>
-    instruction: Array<Step>
+    steps: Array<Step>
     image_url: String | null
 }
 
@@ -22,96 +22,40 @@ interface Step {
     image_url: String | null
 }
 
-interface RecipePreview {
+export interface RecipePreview {
     id: String
     title: String
     image_url: String | null
+    description: String
+    time_to_cook: String
 }
 
-export const useCartStore = defineStore('drfrd', {
+export const useCartStore = defineStore('recipes', {
     state() {
         return {
-            recipes: {
-                "1": {
-                    title: "Soup",
-                    description: "Tasty soup",
-                    time_to_cook: "5h",
-                    ingredients: [
-                        {
-                            title: "onions",
-                            amount: 5,
-                            unit: "items"
-                        },
-                        {
-                            title: "carrots",
-                            amount: 3,
-                            unit: "ps"
-                        }
-                    ],
-                    instruction: [
-                        {
-                            title: "Chop carrots",
-                            comment: "Chop chop the carrots",
-                            image_url: null,
-                        }
-                    ],
-                    image_url: "/public/soup.png",
-                },
-                "2": {
-                    title: "Boiled potatoes",
-                    description: "Easy recipe of boiled potatoes",
-                    time_to_cook: "30m",
-                    ingredients: [
-                        {
-                            title: "butter",
-                            amount: 100,
-                            unit: "g"
-                        },
-                        {
-                            title: "potatoes",
-                            amount: 7,
-                            unit: "ps"
-                        }
-                    ],
-                    instruction: [
-                        {
-                            title: "Chop potatoes",
-                            comment: "Chop potatoes to speed up the cooking process.",
-                            image_url: null,
-                        },
-                        {
-                            title: "Boil potatoes",
-                            comment: "Put chopped potatoes into cold water and cook until done.",
-                            image_url: null,
-                        },
-                        {
-                            title: "Add butter",
-                            comment: "Put potatoes on the plate and add butter. Mm, yummy. Bon appetit!",
-                            image_url: null,
-                        }
-                    ],
-                    image_url: "/public/potatoes.png",
-                },
-
-            } as { [id: string]: Recipe; }
+            recipes: {} as { [id: string]: Recipe; },
+            previews: [] as Array<RecipePreview>
         }
     },
     getters: {
-        previews(state): Array<RecipePreview> {
-            let a: Array<RecipePreview> = [];
-            for (const recipe_id in state.recipes) {
-                a.push({ id: recipe_id, 
-                    title: state.recipes[recipe_id].title, 
-                    image_url: state.recipes[recipe_id].image_url }
-                )
-            }
-            return a
-        }
+        // previews(state): Array<RecipePreview> {
+        //     let a: Array<RecipePreview> = [];
+        //     for (const recipe_id in state.recipes) {
+        //         a.push({ id: recipe_id, 
+        //             title: state.recipes[recipe_id].title, 
+        //             image_url: state.recipes[recipe_id].image_url }
+        //         )
+        //     }
+        //     return a
+        // }
 
     },
     actions: {
+        setPreviews(previews: Array<RecipePreview>) {
+            this.previews = previews
+        }
     },
     persist: {
-      enabled: true
+        enabled: true
     }
 })
