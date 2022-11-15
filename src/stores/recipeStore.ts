@@ -1,5 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import axios, { AxiosError } from "axios";
+
 
 interface Ingredient {
     title: String
@@ -48,11 +50,20 @@ export const useCartStore = defineStore('recipes', {
         //     }
         //     return a
         // }
-
+        recipe(state) {
+            return async (recipe_id: string): Promise<Recipe> => {   // recipe returns function (that returns array)
+                return (await axios.get(`http://127.0.0.1:8080/recipes/${recipe_id}`)).data
+            }
+        }
     },
     actions: {
         setPreviews(previews: Array<RecipePreview>) {
             this.previews = previews
+        },
+        updatePreviews() {
+            axios.get(`http://127.0.0.1:8080/recipes`).then((response: any) => {
+                this.previews = response.data.previews; //this - элемент в этом state
+            })
         }
     },
     persist: {
