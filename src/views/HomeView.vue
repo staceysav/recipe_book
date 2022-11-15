@@ -16,7 +16,7 @@ cart.updatePreviews() //запустить action из store.
     </div> -->
 
     <div v-for="preview in cart.previews" class="card" style="width: 18rem;">
-      <img v-if=" preview.image_url !== null" :src="`${preview.image_url}`" class="card-img-top" alt="dish">
+      <img v-if=" preview.image_url !== null && preview.image_url !== ''" :src="`${preview.image_url}`" class="card-img-top" alt="dish">
       <div class="card-body">
         <router-link :to="`/recipe/${preview.id}`">{{ preview.title }}<br></router-link>
       </div>

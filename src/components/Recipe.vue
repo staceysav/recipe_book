@@ -48,7 +48,7 @@ try {
         <tbody>
           <tr v-for="item in recipe.ingredients">
             <td>{{ item.title }}</td>
-            <td>{{ item.amount }} </td>steps
+            <td>{{ item.amount }} </td>
             <td>{{ item.unit }}</td>
           </tr>
 
@@ -61,7 +61,7 @@ try {
           <h5 class="card-title">{{ item.title }}</h5>
           <p class="card-text">{{ item.comment }}</p>
         </div>
-        <img v-show="item.image_url !== null" src="{{ item.image_url }}" class="card-img-bottom" alt="img">
+        <img v-show="item.image_url !== null && item.image_url !== ''" src="{{ item.image_url }}" class="card-img-bottom" alt="img">
       </div>
 
     </div>
