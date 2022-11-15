@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import { useCartStore as useRecipeStore } from "../stores/recipeStore";
+import { useRoute, useRouter } from "vue-router";
+import { ref } from "vue";
+
+
+const route = useRoute()
+const router = useRouter()
 const store = useRecipeStore();
 
 const props = defineProps<{recipe_id: string}>();
 
-const recipe = await store.recipe(props.recipe_id); // чтобы промис превратить в данные (array) нужно поставить await
+const recipe: any = ref(null);
+try {
+    recipe.value = await store.recipe(props.recipe_id); // чтобы промис превратить в данные (array) нужно поставить await
+} catch {
+    router.push("/error");
+}
+
 </script>
 
 <template>
